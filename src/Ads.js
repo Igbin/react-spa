@@ -1,54 +1,84 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter as Router, Switch, Route, Link, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import Ad from './Ad.js';
 
 class Ads extends Component {
 
- ads = [
-  { id: 1, title: "Dark Orchid", description: "DarkOrchid", author: "Igbin", date: "2323" },
-  { id: 2, title: "Lime Green", description: "LimeGreen", author: "login", date: "2323" },
-];
+state = {
+message: 'alex',
+id: JSON.parse(localStorage.getItem("adsArray")) ? JSON.parse(localStorage.getItem("adsArray")).length+1 : 0
+}
 
 
  date = () => {
- 	return new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDate() + ' '+new Date().getHours() + ':'+new Date().getMinutes() 
+
+ 	return new Date().getFullYear()+'-'+ (new Date().getMonth()+1)+'-'+new Date().getDate() + ' '+new Date().getHours() + ':'+new Date().getMinutes() 
  }
 
+
 newAdsadd = () => {
+var arrfromLocal;
+  if(JSON.parse(localStorage.getItem("adsArray"))) {
+  	arrfromLocal = JSON.parse(localStorage.getItem("adsArray"))
+  } else {
+  	arrfromLocal = [];
+  }
+
+
 	let title = document.getElementById('title').value
 	let description = document.getElementById('description').value
-	let author = document.getElementById('author').value
 
 	let obj = {
-		id: (this.ads.length)+1,
+		id: (arrfromLocal.length)+1,
 		title: title,
 		description:description,
-		author: author,
+		login: this.props.location.login,
 		date: this.date()
 
 	}
 
-return this.ads.push(obj)
+	this.setState({id:obj.id})
+	console.log(this.state.id)
+arrfromLocal.push(obj)
+localStorage.setItem("adsArray", JSON.stringify(arrfromLocal))
+return this.setState({redirect: true});
+}
+
+propstoapp = () => {
+	 this.props.location.updateData(this.state.ads)
 }
 
   render() {
+ var adTo = { 
+  pathname: `Ads/${this.state.id}`, 
+  login: this.props.location.login,
+}
+
+ 	if (this.state.redirect) {
+    return <Redirect push to={adTo} />;
+  }
     return (
 
-     <div className="Ads">
-    <h1> {this.date}</h1>
+     <div className="CreateAds">
+     <p>Props: {this.props.location.param1}</p>
+     <p>State: {this.state.message}</p>
      <label htmlFor="title">Title</label>
      <input type="text" name="title" id="title" />
      <label htmlFor="description">Desctription</label>
      <input type="textarea" name="description" id="description"/>
-     <label htmlFor="author">Author</label>
-     <input type="textarea" name="author" id="author"/>
-     <div id="date"></div>
 
-     <button onClick={this.date}>Date</button>
-     <button onClick={this.newAdsadd}>press</button>
-     <Link to="/" >Home</Link>
+     <button onClick={this.newAdsadd}>Create Ad</button>
+     <button onClick={ this.propstoapp}>Запустить бумеранг</button>
+     <Link to="/Login" >Home</Link>
+		<Link to="Ads/3">Link to ad</Link>
+
+
 
       </div>
+
+
+
   
     );
   }

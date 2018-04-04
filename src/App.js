@@ -4,41 +4,63 @@ import './App.css';
 import Form from './Form.js';
 import Login from './Login.js';
 import Ads from './Ads.js';
+import Ad from './Ad.js';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
 
 class App extends Component {
+    state = {
+
+  };
+
+/*updateData = (value) => {
+   this.setState({ ads: value })
+}*/
+
+clearData = () => { localStorage.clear()}
+
   render() {
+
+   
+
+
     return (
      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-       <div>
-         <Form />
-       </div>
+    <p>Local Storage Ads length:{JSON.parse(localStorage.getItem("adsArray")) ? 
+    JSON.parse(localStorage.getItem("adsArray")).length : "0"} </p>
        <div>   
-               
-                
-                 <Link to={'/Login'}>Login</Link>
-                 <Link to={'/Ads'}>Ads</Link>
-               <Switch>
-               <Route  path='/Login' component={Login} />
-                  <Route  exactpath='/Form' component={Form} />
-                   <Route  path='/Ads' component={Ads} />
-              </Switch>
-              
-               <hr />
-        </div>  
-          
-        
-      </div>
 
+
+                  <Switch>
+                   <Route  path='/Login' component={Login} />
+                   <Route path="/Ads/:id" component={Ad} />
+                   <Route  path='/Ads' component={Ads} />
+                    <Route  exactpath='/' component={Form} />
+                   </Switch>
+                
+                 
+              
+                   <button onClick={this.clearData}>clearData</button>
+      
+        </div>  
+          <div>
+          
+          </div>
+       
+         
+
+ 
+
+
+
+<p>{this.Keys}</p>
+
+      </div>
 
     );
   }
 }
 
 export default App;
+
