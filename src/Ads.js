@@ -53,6 +53,7 @@ propstoapp = () => {
  var adTo = { 
   pathname: `Ads/${this.state.id}`, 
   login: this.props.location.login,
+  id: this.state.id
 }
 
  	if (this.state.redirect) {

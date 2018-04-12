@@ -83,32 +83,51 @@ var log = document.getElementById("login").value;
 var pass = document.getElementById("pass").value;
 var obj = {login: log,
             password: pass}
-for(var i = 0; i<=loginsfromLocal.length;i++) {
 
-   if (loginsfromLocal.length > 0 && log!==loginsfromLocal[i].login) {
-      loginsfromLocal.push(obj)
-      localStorage.setItem('loginsArray', JSON.stringify(loginsfromLocal)) 
-     console.log("case for login #2")
-     console.log(log=== loginsfromLocal[1].login)
-      return    this.setState({redirect: true, login:log});
-    } else if (loginsfromLocal.length === 0) {
-        loginsfromLocal.push(obj)
-      localStorage.setItem('loginsArray', JSON.stringify(loginsfromLocal)) 
-      console.log("case 1")
-      return    this.setState({redirect: true, login:log});
 
-  } else if (log===loginsfromLocal[i].login && pass!==loginsfromLocal[i].password) {
-    console.log("case 2")
-    console.log(loginsfromLocal[i].password)
-    return alert("wrong password"); 
-} else if (log===loginsfromLocal[i].login && pass===loginsfromLocal[i].password) {
-console.log("case 3")
-    return    this.setState({redirect: true, login:log});
-    
-    
+if (loginsfromLocal.length === 0) {
+  loginsfromLocal.push(obj)
+    localStorage.setItem('loginsArray', JSON.stringify(loginsfromLocal)) 
+ return this.setState({redirect: true, login:log});
+} else{
 
-  } 
+var checkTrue = loginsfromLocal.every(function(elem) {
+  if (elem.login !== log) {
+    return true;
+  } else {
+    return false;
+  }
+});
+var checkFalse = loginsfromLocal.some(function(elem) {
+  if (elem.login === log && elem.password !== pass) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
+var checkGood = loginsfromLocal.some(function(elem) {
+  if (elem.login === log && elem.password === pass) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
+if(checkTrue) {
+  loginsfromLocal.push(obj)
+    localStorage.setItem('loginsArray', JSON.stringify(loginsfromLocal)) 
+ return this.setState({redirect: true, login:log});
 }
+
+
+ else if(checkFalse) {
+  return alert("wrong password"); 
+} else if(checkGood) {
+   return this.setState({redirect: true, login:log});
+}
+}
+
   }
 
 
@@ -154,13 +173,19 @@ console.log(localStorage[key])}
        </button>
      </form>
  <div className="Ads">ads:{JSON.parse(localStorage.getItem("adsArray")) ? JSON.parse(localStorage.getItem("adsArray")).map(function(item, index) {
+   { var adTo = { 
+  pathname: `Ads/${item.id}`,
+  id: item.id
+}
+}
   return (
     <div key={index} className="Ads_item">
-{/*    <li><Link to={`/Ads/${stuff.id}`} activeClassName="active">{item.title}</Link></li>*/}
+ <Link to={adTo}> 
+
       <p >{item.login}</p>
       <p >{item.title}</p>
       <p >{item.date}</p>
-    </div>
+   </Link> </div> 
   )}) : <p>not yet</p> }</div>
 
      

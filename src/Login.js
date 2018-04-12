@@ -5,6 +5,11 @@ import Ads from './Ads.js';
 
 class Login extends Component {
 
+state = {
+	login: this.props.location.login
+}
+
+
 updateData = (value) => {
    this.setState({ ads: value })
 }
@@ -21,18 +26,24 @@ updateData = (value) => {
 
      <div className="Login">
 
-     <h1> Hello {this.props.location.login} </h1>
+     <h1> Hello {this.state.login} </h1>
      <li><Link to="/" >Log Out</Link></li>
      <Link to={adsTo}>Create Ad</Link>
 
 <div className="Ads">ads:{JSON.parse(localStorage.getItem("adsArray")) ?  JSON.parse(localStorage.getItem("adsArray")).map(function(item, index) {
+     { var adTo = { 
+  pathname: `Ads/${item.id}`,
+  login: adsTo.login,
+  id: item.id
+}
+}
   return (
     <div key={index} className="Ads_item">
-{/*    <li><Link to={`/Ads/${stuff.id}`} activeClassName="active">{item.title}</Link></li>*/}
+ <Link to={adTo}> 
       <p className="news__author">{item.login}</p>
       <p className="news__text">{item.title}</p>
       <p className="news__text">{item.date}</p>
-    </div>
+   </Link> </div>
   )}) : <p>not yet</p>}</div>
 
       </div>
