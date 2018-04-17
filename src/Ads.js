@@ -6,7 +6,7 @@ import Ad from './Ad.js';
 class Ads extends Component {
 
 state = {
-message: 'alex',
+
 id: JSON.parse(localStorage.getItem("adsArray")) ? JSON.parse(localStorage.getItem("adsArray")).length+1 : 0
 }
 
@@ -55,7 +55,10 @@ propstoapp = () => {
   login: this.props.location.login,
   id: this.state.id
 }
-
+const homeTo = {
+	pathname: "/Login", 
+  login: this.props.location.login,
+}
  	if (this.state.redirect) {
     return <Redirect push to={adTo} />;
   }
@@ -63,7 +66,6 @@ propstoapp = () => {
 
      <div className="CreateAds">
      <p>Props: {this.props.location.param1}</p>
-     <p>State: {this.state.message}</p>
      <label htmlFor="title">Title</label>
      <input type="text" name="title" id="title" />
      <label htmlFor="description">Desctription</label>
@@ -71,7 +73,7 @@ propstoapp = () => {
 
      <button onClick={this.newAdsadd}>Create Ad</button>
      <button onClick={ this.propstoapp}>Запустить бумеранг</button>
-     <Link to="/Login" >Home</Link>
+     <Link to={homeTo}>Home</Link>
 		<Link to="Ads/3">Link to ad</Link>
 
 

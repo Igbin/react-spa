@@ -10,20 +10,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
 class App extends Component {
-    state = {
 
-  };
-
-/*updateData = (value) => {
-   this.setState({ ads: value })
-}*/
 
 clearData = () => { localStorage.clear()}
 
   render() {
 
    
-
 
     return (
      <div className="App">
@@ -38,8 +31,7 @@ clearData = () => { localStorage.clear()}
                    <Route  path='/Ads' component={Ads} />
                     <Route  exactpath='/' component={Form} />
                    </Switch>
-                
-                 
+                              
               
                    <button onClick={this.clearData}>clearData</button>
       
@@ -47,14 +39,7 @@ clearData = () => { localStorage.clear()}
           <div>
           
           </div>
-       
-         
 
- 
-
-
-
-<p>{this.Keys}</p>
 
       </div>
 

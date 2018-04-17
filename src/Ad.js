@@ -46,7 +46,9 @@ render() {
 
 var loginTo2 = { 
   pathname: this.props.location.login ? "/Login" : "/", 
-  login: this.props.location.login };
+  login: this.props.location.login,
+  currentAdslength: this.props.location.currentAdslength 
+};
 
 
 
@@ -67,13 +69,6 @@ var ad = this.renderAd()
      <p>description: {ad.description} </p>
      <p>date: {ad.date} </p>
 
-
-
-{/*<p>Hello {this.props.location.login} I am Ad # {JSON.parse(localStorage.getItem("adsArray"))[JSON.parse(localStorage.getItem("adsArray")).length-1].id}</p>
-<p>Author: {JSON.parse(localStorage.getItem("adsArray"))[JSON.parse(localStorage.getItem("adsArray")).length-1].login}</p>
-<p>{JSON.parse(localStorage.getItem("adsArray"))[JSON.parse(localStorage.getItem("adsArray")).length-1].title}</p>
- <p>{JSON.parse(localStorage.getItem("adsArray"))[JSON.parse(localStorage.getItem("adsArray")).length-1].description}</p>
-<p>{JSON.parse(localStorage.getItem("adsArray"))[JSON.parse(localStorage.getItem("adsArray")).length-1].date}</p>*/}
 
 
 <Link to={loginTo2}>Home</Link>

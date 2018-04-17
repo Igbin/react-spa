@@ -20,6 +20,9 @@ constructor (props) {
     loginValid: false,
     passwordValid: false,
     formValid: false,
+    currentAdslength: this.props.location.currentAdslength ? this.props.location.currentAdslength :4,
+  
+    
   }
 
 }
@@ -132,23 +135,36 @@ if(checkTrue) {
 
 
  myFunc2 = () => {
-console.log(Object.keys(localStorage))
-for (let key in localStorage) {
-console.log(localStorage[key])}
+
+console.log(JSON.parse(localStorage.getItem("adsArray")).length + " JSON ")
+
+console.log(document.querySelectorAll('.Ads_item').length + "Current Ads ")
+
 }
 
+addAds = () => {
+
+  this.setState({currentAdslength: this.state.currentAdslength + 5})
+  if(JSON.parse(localStorage.getItem("adsArray")) && this.state.currentAdslength >= JSON.parse(localStorage.getItem("adsArray")).length)
+this.setState({disabled: true})
+}
 
  render () {
     var loginTo = { 
   pathname: "/Login", 
-  login: this.state.login
+  login: this.state.login,
+  currentAdslength: this.state.currentAdslength
 }
+var currentAdslength = this.state.currentAdslength;
+
   if (this.state.redirect) {
     return <Redirect push to={loginTo} />;
   }
 
+
    return (
     <div>
+
      <form className="demoForm">
        <h2>Sign up</h2>
        <div className="panel panel-default">
@@ -173,22 +189,36 @@ console.log(localStorage[key])}
        </button>
      </form>
  <div className="Ads">ads:{JSON.parse(localStorage.getItem("adsArray")) ? JSON.parse(localStorage.getItem("adsArray")).map(function(item, index) {
+ 
    { var adTo = { 
+  
+  
   pathname: `Ads/${item.id}`,
-  id: item.id
+  id: item.id,
+  currentAdslength: currentAdslength
 }
-}
+if(index <= currentAdslength) {
   return (
-    <div key={index} className="Ads_item">
+    <div key={index} className="Ads_item"> 
  <Link to={adTo}> 
 
       <p >{item.login}</p>
       <p >{item.title}</p>
       <p >{item.date}</p>
    </Link> </div> 
-  )}) : <p>not yet</p> }</div>
+  )}}   }) : <p>not Ads yet</p> }</div>
+{ !JSON.parse(localStorage.getItem("adsArray")) ? 
+<button id="addAds" onClick={this.addAds} disabled={true}>Not Yet Ads</button> :
+   this.state.currentAdslength >= JSON.parse(localStorage.getItem("adsArray")).length ?
 
-     
+<button id="addAds" onClick={this.addAds} disabled={true}>Nothing to Load More</button> :
+
+ <button id="addAds" onClick={this.addAds}> Load More</button>
+}
+
+
+
+    
 
 </div>
      
