@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin-bottom: 50px;
 }
 
 .App-logo {
@@ -27,8 +28,56 @@
   to { transform: rotate(360deg); }
 }
 .Ads {
-  border: 1px solid blue;
+  width: 50%;
+  margin: 50px auto;
+
 }
-.Ads_item {
-    border: 1px solid red;
+.Ads_item:hover {
+   border: 1px solid blue;
+}
+.Ads  a:hover {
+text-decoration: none;
+}
+.Login {
+  width: 50%;
+  margin: 0 auto;
+}
+.Login a{
+  display: block;
+} 
+
+.Create {
+  display: block;
+  margin-top: 50px;
+  background-color: blue;
+  color: white;
+  height: 50px;
+  border-radius: 15%;
+  padding-top: 15px;
+ 
+}
+.Create:hover {
+  text-decoration: none;
+  color: white;
+}
+.CreateAds button{
+  margin: 50px;
+}
+.Adsmall {
+  width: 50%;
+  border: 1px blue solid;
+  margin: 100px auto;
+  overflow-wrap: break-word;
+  padding: 20px;
+}
+.Adsmall p {
+   width: 100%;
+   margin: 20px auto
+}
+
+
+.Ad a {
+  display: block;
+  margin-top: 300px;
+  font-size: 30px;
 }

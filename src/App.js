@@ -16,33 +16,22 @@ clearData = () => { localStorage.clear()}
 
   render() {
 
-   
-
     return (
      <div className="App">
     <p>Local Storage Ads length:{JSON.parse(localStorage.getItem("adsArray")) ? 
     JSON.parse(localStorage.getItem("adsArray")).length : "0"} </p>
        <div>   
-
-
                   <Switch>
                    <Route  path='/Login' component={Login} />
                    <Route path="/Ads/:id" component={Ad} />
                    <Route  path='/Ads' component={Ads} />
                     <Route  exactpath='/' component={Form} />
-                   </Switch>
-                              
-              
-                   <button onClick={this.clearData}>clearData</button>
-      
+                   </Switch>                       
+                  {/* <button onClick={this.clearData}>clearData</button>  */}
         </div>  
-          <div>
-          
+          <div>         
           </div>
-
-
       </div>
-
     );
   }
 }
